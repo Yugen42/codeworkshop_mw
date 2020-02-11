@@ -17,10 +17,10 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping("/factory")
 public class Controller {
 
-    private final Service factoryService;
+    private final ServiceQueue factoryService;
 
     @Autowired
-    public Controller(final Service factoryService) {
+    public Controller(final ServiceQueue factoryService) {
 
         this.factoryService = factoryService;
     }

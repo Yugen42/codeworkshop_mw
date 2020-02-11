@@ -3,9 +3,7 @@ package de.conrad.codeworkshop.factory.services.order;
 import de.conrad.codeworkshop.factory.services.order.api.Order;
 import de.conrad.codeworkshop.factory.services.order.api.OrderConfirmation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Andreas Hartmann
@@ -22,7 +20,8 @@ public class Controller {
     }
 
     @PostMapping("/create")
-    public OrderConfirmation createOrder(final Order order) {
+    @ResponseBody
+    public OrderConfirmation createOrder(@RequestBody final Order order) {
         return factoryService.createOrder(order);
     }
 }
