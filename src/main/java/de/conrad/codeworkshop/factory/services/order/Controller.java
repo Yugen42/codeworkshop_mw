@@ -3,7 +3,10 @@ package de.conrad.codeworkshop.factory.services.order;
 import de.conrad.codeworkshop.factory.services.order.api.Order;
 import de.conrad.codeworkshop.factory.services.order.api.OrderConfirmation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +25,7 @@ public class Controller {
     }
 
     @PostMapping("/create")
-    public OrderConfirmation createOrder(final Order order) {
-        return factoryService.createOrder(order);
+    public ResponseEntity<OrderConfirmation> createOrder(@RequestBody final Order order) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(factoryService.createOrder(order));
     }
 }
