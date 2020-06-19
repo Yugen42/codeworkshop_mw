@@ -11,9 +11,16 @@ public class Order {
     private List<Position> positions;
     private OrderConfirmation orderConfirmation;
     private OrderStatus status = PENDING;
+    private Position wrongPosition = null;
 
     public void validate() {
-        if (!positions.isEmpty() && status == PENDING) {
+        for (Position position: positions) {
+            if (!position.isProductIdValid() || !position.isQuantityValid()) {
+                wrongPosition = position;
+            }
+        }
+
+        if (!positions.isEmpty() && status == PENDING && wrongPosition == null) {
             status = ACCEPTED;
         } else {
             status = DECLINED;
