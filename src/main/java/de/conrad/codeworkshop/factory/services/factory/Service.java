@@ -18,4 +18,5 @@ class Service {
         order.setStatus(OrderStatus.IN_PROGRESS);
         manufacturingQueue.add(order);
     }
+
 }
