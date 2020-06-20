@@ -5,20 +5,24 @@ import de.conrad.codeworkshop.factory.services.notification.Service;
 import de.conrad.codeworkshop.factory.services.order.api.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+@org.springframework.stereotype.Service("workerService")
 public class Worker implements Runnable {
-    private ConcurrentLinkedQueue<Order> queue = null;
+    private ConcurrentLinkedQueue<Order> queue;
     final int SLEEP_TIME = 5000;
 
-    final Service notificationService;
 
     @Autowired
-    Worker(ConcurrentLinkedQueue<Order> queue, Service notificationService){
-        this.notificationService = notificationService;
-        run();
+    Service getNotificationService;
+
+
+    public void setQueue(ConcurrentLinkedQueue<Order> queue) {
+        this.queue = queue;
     }
+
     @Override
     public void run(){
 /*        synchronized (queue) {
@@ -35,7 +39,7 @@ public class Worker implements Runnable {
             Order currentOrder = queue.remove();
             currentOrder.setStatus(OrderStatus.COMPLETED);
             Thread.sleep(SLEEP_TIME);
-            notificationService.notifyCustomer(currentOrder);
+            getNotificationService.notifyCustomer(currentOrder);
         } catch (final InterruptedException | NoSuchElementException interruptedException) {
             System.err.println(interruptedException.getMessage());
         }

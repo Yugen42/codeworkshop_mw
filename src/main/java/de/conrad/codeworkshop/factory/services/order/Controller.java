@@ -1,14 +1,14 @@
 package de.conrad.codeworkshop.factory.services.order;
 
+import de.conrad.codeworkshop.factory.services.factory.Worker;
 import de.conrad.codeworkshop.factory.services.order.api.Order;
 import de.conrad.codeworkshop.factory.services.order.api.OrderConfirmation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Andreas Hartmann
@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controller {
 
     private final Service factoryService;
+    @Autowired
+    Worker worker;
 
     @Autowired
     public Controller(final Service service) {

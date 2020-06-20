@@ -27,14 +27,12 @@ public class Position {
     }
 
     public boolean isProductIdValid(){
-        return String.valueOf(this.getProductId()).length() > 6 && String.valueOf(this.getProductId()).length() < 9;
+        return String.valueOf(this.getProductId()).length() >= 6 && String.valueOf(this.getProductId()).length() <= 9;
     }
 
     public boolean isQuantityValid(){
-        if (quantity.stripTrailingZeros().scale() == 0){
-            if (quantity.unscaledValue().mod(BigInteger.valueOf(10)).equals(BigInteger.valueOf(0))) {
+        if (quantity.stripTrailingZeros().scale() < 0){
                 return true;
-            }
         }
 
         if (quantity.min(BigDecimal.ONE).equals(quantity)
