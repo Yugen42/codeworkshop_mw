@@ -1,12 +1,11 @@
 package de.conrad.codeworkshop.factory.services.order.api;
 
-import org.springframework.lang.Nullable;
-
-import javax.validation.constraints.NotNull;
-
-import static de.conrad.codeworkshop.factory.services.order.api.OrderNumber.*;
+import static de.conrad.codeworkshop.factory.services.order.api.OrderNumber.generate;
 import static de.conrad.codeworkshop.factory.services.order.api.OrderStatus.ACCEPTED;
 import static de.conrad.codeworkshop.factory.services.order.api.OrderStatus.DECLINED;
+
+import javax.validation.constraints.NotNull;
+import org.springframework.lang.Nullable;
 
 /**
  * @author Andreas Hartmann

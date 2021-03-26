@@ -1,8 +1,10 @@
 package de.conrad.codeworkshop.factory.services.order.api;
 
-import java.util.List;
+import static de.conrad.codeworkshop.factory.services.order.api.OrderStatus.ACCEPTED;
+import static de.conrad.codeworkshop.factory.services.order.api.OrderStatus.DECLINED;
+import static de.conrad.codeworkshop.factory.services.order.api.OrderStatus.PENDING;
 
-import static de.conrad.codeworkshop.factory.services.order.api.OrderStatus.*;
+import java.util.List;
 
 /**
  * @author Andreas Hartmann

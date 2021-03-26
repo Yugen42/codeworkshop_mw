@@ -1,9 +1,9 @@
 package de.conrad.codeworkshop.factory.services.order.api;
 
+import static java.math.BigInteger.valueOf;
+
 import java.math.BigInteger;
 import java.util.Random;
-
-import static java.math.BigInteger.valueOf;
 
 /**
  * @author Andreas Hartmann

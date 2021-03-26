@@ -1,11 +1,15 @@
 package de.conrad.codeworkshop.factory.services.order.api;
 
+import de.conrad.codeworkshop.factory.services.order.api.constraint.ProductIdConstraint;
 import java.math.BigDecimal;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * @author Andreas Hartmann
  */
 public class Position {
+    @Length(min = 6, max = 9)
+    @ProductIdConstraint()
     private Integer productId;
     private BigDecimal quantity;
 

@@ -1,17 +1,15 @@
 package de.conrad.codeworkshop.factory.services.order;
 
-import de.conrad.codeworkshop.factory.services.factory.Controller;
+import static de.conrad.codeworkshop.factory.services.order.api.OrderConfirmation.BLANK_ORDER_CONFIRMATION;
+import static de.conrad.codeworkshop.factory.services.order.api.OrderStatus.ACCEPTED;
+
 import de.conrad.codeworkshop.factory.services.order.api.Order;
 import de.conrad.codeworkshop.factory.services.order.api.OrderConfirmation;
 import de.conrad.codeworkshop.factory.services.order.api.OrderNumber;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
 import java.math.BigInteger;
 import java.util.Random;
-
-import static de.conrad.codeworkshop.factory.services.order.api.OrderConfirmation.BLANK_ORDER_CONFIRMATION;
-import static de.conrad.codeworkshop.factory.services.order.api.OrderStatus.ACCEPTED;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * @author Andreas Hartmann
@@ -19,7 +17,7 @@ import static de.conrad.codeworkshop.factory.services.order.api.OrderStatus.ACCE
 @org.springframework.stereotype.Service("orderService")
 public class Service {
 
-    private final Controller factoryController;
+    private final de.conrad.codeworkshop.factory.services.order.Controller factoryController;
 
     @Autowired
     public Service(de.conrad.codeworkshop.factory.services.factory.Controller factoryController) {
