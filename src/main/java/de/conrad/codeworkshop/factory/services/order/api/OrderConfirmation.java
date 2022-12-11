@@ -13,24 +13,28 @@ import static de.conrad.codeworkshop.factory.services.order.api.OrderStatus.DECL
  */
 public class OrderConfirmation {
 
-    public static final OrderConfirmation BLANK_ORDER_CONFIRMATION = new OrderConfirmation(null);
+	public static final OrderConfirmation BLANK_ORDER_CONFIRMATION = new OrderConfirmation(null);
 
-    private OrderStatus status;
-    private OrderNumber orderNumber;
+	private OrderStatus status;
+	private OrderNumber orderNumber;
 
-    public OrderConfirmation(final OrderNumber orderNumber) {
-        this.orderNumber = generate();
+	public OrderConfirmation() {
+		super();
+	}
 
-        this.status = null == orderNumber ? DECLINED : ACCEPTED;
-    }
+	public OrderConfirmation(final OrderNumber orderNumber) {
+		this.orderNumber = generate();
 
-    @Nullable
-    public OrderNumber getOrderNumber() {
-        return orderNumber;
-    }
+		this.status = null == orderNumber ? DECLINED : ACCEPTED;
+	}
 
-    @NotNull
-    public OrderStatus getStatus() {
-        return status;
-    }
+	@Nullable
+	public OrderNumber getOrderNumber() {
+		return orderNumber;
+	}
+
+	@NotNull
+	public OrderStatus getStatus() {
+		return status;
+	}
 }
