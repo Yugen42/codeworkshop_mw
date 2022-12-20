@@ -22,7 +22,7 @@ public class Service {
     private final Controller factoryController;
 
     @Autowired
-    public Service(de.conrad.codeworkshop.factory.services.factory.Controller factoryController) {
+    public Service(Controller factoryController) {
         this.factoryController = factoryController;
     }
 
