@@ -21,21 +21,18 @@ public class Controller {
 
     @Autowired
     public Controller(final Service factoryService) {
-
         this.factoryService = factoryService;
+        factoryService.startEndlessCycle();
     }
 
     @PostMapping(value = "/enqueue")
     public final HttpStatus enqueue(final Order order) {
-
         HttpStatus response = OK;
-
         try {
             factoryService.enqueue(order);
         } catch (final Exception exception) {
             response = INTERNAL_SERVER_ERROR;
         }
-
         return response;
     }
 }
