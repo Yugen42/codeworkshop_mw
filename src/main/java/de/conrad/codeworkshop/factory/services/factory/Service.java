@@ -19,13 +19,14 @@ class Service {
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private final ConcurrentLinkedQueue<Order> manufacturingQueue = new ConcurrentLinkedQueue<>();
 
-    ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+    ScheduledExecutorService executorService;
 
     private final de.conrad.codeworkshop.factory.services.notification.Service notificationService;
 
     @Autowired
     Service(de.conrad.codeworkshop.factory.services.notification.Service notificationService) {
         this.notificationService = notificationService;
+        this.executorService = Executors.newSingleThreadScheduledExecutor();
     }
 
 
@@ -38,15 +39,32 @@ class Service {
         while(true){
             Order newOrder = manufacturingQueue.poll();
             new Thread(() -> {
-                assert newOrder != null;
-                executorService.schedule(onEvent(newOrder), 5, TimeUnit.SECONDS);
+                if(newOrder != null) {
+                    executorService.schedule(onEvent(newOrder), 5, TimeUnit.SECONDS);
+                }
             }).start();
         }
     }
 
+    /**
+     * Another way to keep pauses during execution, less recommended due to impact on processing of other requests
+     */
+    void startPrimivitiveWorker(){
+        while(true){
+            Order newOrder = manufacturingQueue.poll();
+            try {
+                TimeUnit.SECONDS.sleep(5);
+                onEvent(newOrder);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
     Runnable onEvent(Order order){
-        assert order != null;
-        order.setStatus(OrderStatus.COMPLETED);
+        if (order != null) {
+            order.setStatus(OrderStatus.COMPLETED);
+        }
         notificationService.notifyCustomer(order);
         return null;
     }
