@@ -11,7 +11,7 @@ import static java.math.BigInteger.valueOf;
 public class OrderNumber {
     private final BigInteger orderNumberPlain;
 
-    public OrderNumber(BigInteger futureOrderNumberPlain) {
+    public OrderNumber(final BigInteger futureOrderNumberPlain) {
         orderNumberPlain = futureOrderNumberPlain;
     }
 

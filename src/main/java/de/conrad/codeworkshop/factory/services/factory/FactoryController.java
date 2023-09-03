@@ -15,19 +15,17 @@ import static org.springframework.http.HttpStatus.OK;
  */
 @RestController("factoryController")
 @RequestMapping("/factory")
-public class Controller {
+public class FactoryController {
 
-    private final Service factoryService;
+    private final FactoryService factoryService;
 
     @Autowired
-    public Controller(final Service factoryService) {
-
+    public FactoryController(final FactoryService factoryService) {
         this.factoryService = factoryService;
     }
 
     @PostMapping(value = "/enqueue")
     public final HttpStatus enqueue(final Order order) {
-
         HttpStatus response = OK;
 
         try {
