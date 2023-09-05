@@ -5,6 +5,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.2.1.RELEASE")
+        classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:2.0.0"
     }
 }
 
@@ -14,7 +15,7 @@ plugins {
     id 'idea'
     id "org.springframework.boot" version "2.2.1.RELEASE"
     id "io.spring.dependency-management" version "1.0.8.RELEASE"
-//    id "nebula.lint" version "16.0.2"
+    //  id "nebula.lint" version "16.0.2"
 }
 
 bootJar {
@@ -33,10 +34,29 @@ targetCompatibility = 11
 
 dependencies {
     implementation group: 'com.google.code.findbugs', name: 'annotations', version: '3.0.1'
+    // TODO <- is replaced by spotbugs, should be removed?
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.2.1.RELEASE'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    testImplementation("junit:junit")
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
+
+test {
+    useJUnitPlatform()
+}
+
+apply plugin: "com.github.spotbugs"
+
+tasks.withType(com.github.spotbugs.SpotBugsTask) {
+    spotbugsMain.enabled = true
+    spotbugsTest.enabled = true
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+

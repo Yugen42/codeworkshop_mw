@@ -1,24 +1,29 @@
-package de.conrad.codeworkshop.factory.services.order.api;
+package de.conrad.codeworkshop.factory.services.order.business.domain;
+
+import lombok.Data;
 
 import java.util.List;
 
-import static de.conrad.codeworkshop.factory.services.order.api.OrderStatus.*;
 
 /**
  * @author Andreas Hartmann
  */
+@Data
 public class Order {
+    private OrderNumber orderNumber;
+
     private List<Position> positions;
     private OrderConfirmation orderConfirmation;
-    private OrderStatus status = PENDING;
 
-    public void validate() {
+    private OrderStatus status = OrderStatus.PENDING;
+
+  /*  public void validate() {
         if (!positions.isEmpty() && status == PENDING) {
             status = ACCEPTED;
         } else {
             status = DECLINED;
         }
-    }
+    }*/
 
     public void setOrderConfirmation(final OrderConfirmation orderConfirmation) {
         this.orderConfirmation = orderConfirmation;

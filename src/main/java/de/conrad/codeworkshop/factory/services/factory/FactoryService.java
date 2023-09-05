@@ -1,7 +1,7 @@
 package de.conrad.codeworkshop.factory.services.factory;
 
-import de.conrad.codeworkshop.factory.services.order.api.Order;
-import de.conrad.codeworkshop.factory.services.order.api.OrderStatus;
+import de.conrad.codeworkshop.factory.services.order.business.domain.Order;
+import de.conrad.codeworkshop.factory.services.order.business.domain.OrderStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Queue;

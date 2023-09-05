@@ -1,18 +1,14 @@
-package de.conrad.codeworkshop.factory.services.order;
+package de.conrad.codeworkshop.factory.services.order.business;
 
 import de.conrad.codeworkshop.factory.services.factory.FactoryService;
-import de.conrad.codeworkshop.factory.services.order.api.Order;
-import de.conrad.codeworkshop.factory.services.order.api.OrderConfirmation;
-import de.conrad.codeworkshop.factory.services.order.api.OrderNumber;
+import de.conrad.codeworkshop.factory.services.order.business.domain.Order;
+import de.conrad.codeworkshop.factory.services.order.business.domain.OrderConfirmation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
-import java.util.Random;
-
-import static de.conrad.codeworkshop.factory.services.order.api.OrderConfirmation.BLANK_ORDER_CONFIRMATION;
-import static de.conrad.codeworkshop.factory.services.order.api.OrderStatus.ACCEPTED;
+import static de.conrad.codeworkshop.factory.services.order.business.domain.OrderConfirmation.BLANK_ORDER_CONFIRMATION;
+import static de.conrad.codeworkshop.factory.services.order.business.domain.OrderStatus.ACCEPTED;
 
 /**
  * @author Andreas Hartmann
@@ -33,12 +29,10 @@ public class OrderService {
      * appropriate order confirmation is returned.
      */
     public OrderConfirmation createOrder(final Order order) {
-        order.validate();
-
         final OrderConfirmation orderConfirmation;
 
         if (order.getStatus() == ACCEPTED) {
-            orderConfirmation = new OrderConfirmation(new OrderNumber(BigInteger.valueOf(new Random().nextInt())));
+            orderConfirmation = new OrderConfirmation(order.getOrderNumber(), ACCEPTED);
             order.setOrderConfirmation(orderConfirmation);
             factoryService.enqueue(order);
         } else {

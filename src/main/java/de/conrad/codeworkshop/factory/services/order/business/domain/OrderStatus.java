@@ -1,4 +1,4 @@
-package de.conrad.codeworkshop.factory.services.order.api;
+package de.conrad.codeworkshop.factory.services.order.business.domain;
 
 /**
  * @author Andreas Hartmann
