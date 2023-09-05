@@ -1,7 +1,9 @@
 This application represents a factory. Customers can create orders using the OrderController's create method. The order 
-is then validated. If it is valid, its status will be set to ACCEPTED and it will get an OrderConfirmation and be put on a queue via the factoryService. Otherwise, it will get a BLANK_ORDER_CONFIRMATION.
+is then validated. If it is valid, its status will be set to ACCEPTED and it will get an OrderConfirmation and be put on a queue via the factoryService. Otherwise, it will get a DECLINED_ORDER_CONFIRMATION.
+The FactoryService sets the order status in progress.
 
-There is also a NotificationService, that would then send a message to the customer once the order has been completed.
+The asynchronous worker processes the queue and sends the orders to the NotificationService.
+And finally the NotificationService would then send a message to the customer once the order has been completed.
 
 There are three open tasks for this project. Please work on them in this order and try to get as far as possible.
 

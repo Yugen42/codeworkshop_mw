@@ -4,6 +4,7 @@ import de.conrad.codeworkshop.factory.services.factory.FactoryService;
 import de.conrad.codeworkshop.factory.services.order.business.domain.Order;
 import de.conrad.codeworkshop.factory.services.order.business.domain.OrderConfirmation;
 import de.conrad.codeworkshop.factory.services.order.business.domain.OrderNumber;
+import de.conrad.codeworkshop.factory.services.order.business.domain.OrderStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,9 @@ public class OrderService {
     public OrderConfirmation createOrder(final Order order) {
         order.setOrderNumber(OrderNumber.generate());
         order.setStatus(ACCEPTED);
-        factoryService.enqueue(order);
+        log.info(String.format("Order %d was accepted and created", order.getOrderNumber().getOrderNumberPlain()));
 
-        return new OrderConfirmation(order.getOrderNumber(), order.getStatus());
+        factoryService.enqueue(order);
+        return new OrderConfirmation(order.getOrderNumber(), OrderStatus.ACCEPTED);
     }
 }

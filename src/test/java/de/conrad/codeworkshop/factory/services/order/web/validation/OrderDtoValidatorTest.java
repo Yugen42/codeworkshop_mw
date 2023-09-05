@@ -41,7 +41,7 @@ class OrderDtoValidatorTest {
     }
 
     @Test
-    void validateOrderWithManyIncorrectPositions() {
+    void validateOrderWithManyViolations() {
         final OrderDto dto = makeOrderDto(-10, BigDecimal.valueOf(43));
         dto.getPositions().add(makePositionDto(null, BigDecimal.valueOf(-1)));
         final Set<FieldError> errors = OrderDtoValidator.validateOrder(dto);
@@ -61,7 +61,8 @@ class OrderDtoValidatorTest {
             Arguments.of(makeOrderDto(Integer.valueOf("123456"), null), true, MUST_NOT_BE_EMPTY_ERROR_MESSAGE),
             Arguments.of(makeOrderDto(Integer.valueOf("1"), BigDecimal.valueOf(42.42)), true, String.format(POSITION_ERROR_MESSAGE, MIN_PRODUCTID_NUMBER, MAX_PRODUCTID_NUMBER)),
             Arguments.of(makeOrderDto(Integer.valueOf("-1"), BigDecimal.valueOf(10)), true, String.format(POSITION_ERROR_MESSAGE, MIN_PRODUCTID_NUMBER, MAX_PRODUCTID_NUMBER)),
-            Arguments.of(makeOrderDto(null, BigDecimal.valueOf(10)), true, MUST_NOT_BE_EMPTY_ERROR_MESSAGE)
+            Arguments.of(makeOrderDto(null, BigDecimal.valueOf(10)), true, MUST_NOT_BE_EMPTY_ERROR_MESSAGE),
+            Arguments.of(new OrderDto(), true, MUST_NOT_BE_EMPTY_ERROR_MESSAGE)
         );
     }
 

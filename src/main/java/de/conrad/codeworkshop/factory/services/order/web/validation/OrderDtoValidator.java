@@ -42,7 +42,7 @@ public class OrderDtoValidator {
         return errors;
     }
 
-    /*
+    /**
      * Product must match the following conditions and be:
      * between given range 100000 and 999999999
      */
@@ -63,7 +63,7 @@ public class OrderDtoValidator {
         return value >= MIN_PRODUCTID_NUMBER && value <= MAX_PRODUCTID_NUMBER;
     }
 
-    /*
+    /**
      * Quantity must match the following conditions and be either:
      * divisible by 10
      * or less than one and larger than 0

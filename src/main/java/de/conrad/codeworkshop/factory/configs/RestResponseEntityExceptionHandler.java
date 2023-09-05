@@ -22,7 +22,7 @@ public class RestResponseEntityExceptionHandler extends ExceptionHandlerExceptio
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     @Primary
-    public ResponseEntity handleNotReadable(final HttpMediaTypeNotSupportedException ex) {
+    public ResponseEntity handleMediaTypeNotSupportedException(final HttpMediaTypeNotSupportedException ex) {
         final String bodyOfResponse = "Payload not readable or empty";
         return new ResponseEntity(bodyOfResponse, HttpStatus.BAD_REQUEST);
     }

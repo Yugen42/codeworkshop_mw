@@ -34,15 +34,18 @@ targetCompatibility = 11
 
 dependencies {
     implementation group: 'com.google.code.findbugs', name: 'annotations', version: '3.0.1'
-    // TODO <- is replaced by spotbugs, should be removed?
+    // TODO findbugs<- is replaced by spotbugs, should be removed?
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.2.1.RELEASE'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation 'org.mockito:mockito-core'
 }
 
 test {

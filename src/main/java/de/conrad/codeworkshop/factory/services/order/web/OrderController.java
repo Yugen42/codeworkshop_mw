@@ -5,10 +5,10 @@ import de.conrad.codeworkshop.factory.services.order.business.domain.OrderConfir
 import de.conrad.codeworkshop.factory.services.order.web.api.OrderDto;
 import de.conrad.codeworkshop.factory.services.order.web.mapping.DtoToDomainMapper;
 import de.conrad.codeworkshop.factory.services.order.web.validation.OrderDtoValidator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +21,9 @@ import static de.conrad.codeworkshop.factory.services.order.business.domain.Orde
 /**
  * @author Andreas Hartmann
  */
+@Slf4j
 @RestController("orderController")
 @RequestMapping("/order")
-@Validated
 public class OrderController {
 
     private final OrderService factoryOrderService;
@@ -45,8 +45,10 @@ public class OrderController {
         if (!CollectionUtils.isEmpty(validationErrors)) {
             // replace return DECLINED_ORDER_CONFIRMATION with uncommented code to get error messages as response
             // throw new OrderValidationException("The order validation is failed. Please check the errors for details.", validationErrors);
+            log.warn(String.format("Incoming order is declined: %s", orderDto));
             return DECLINED_ORDER_CONFIRMATION;
         }
+        log.info(String.format("Incoming order is pending: %s ", orderDto));
         return factoryOrderService.createOrder(dtoToDomainMapper.orderDtoToDomain(orderDto));
     }
 }

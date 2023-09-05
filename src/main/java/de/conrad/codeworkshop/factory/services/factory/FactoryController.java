@@ -15,6 +15,7 @@ import static org.springframework.http.HttpStatus.OK;
  */
 @RestController("factoryController")
 @RequestMapping("/factory")
+// TODO should be removed? FactoryController is not in use
 public class FactoryController {
 
     private final FactoryService factoryService;
