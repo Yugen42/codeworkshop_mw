@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
  */
 public class OrderConfirmation {
 
-    public static final OrderConfirmation BLANK_ORDER_CONFIRMATION = new OrderConfirmation(null, OrderStatus.DECLINED);
+    public static final OrderConfirmation DECLINED_ORDER_CONFIRMATION = new OrderConfirmation(null, OrderStatus.DECLINED);
 
     private OrderStatus status;
     private OrderNumber orderNumber;

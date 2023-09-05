@@ -15,7 +15,6 @@ public class DtoToDomainMapper {
 
     public Order orderDtoToDomain(final OrderDto orderDto) {
         final Order order = new Order();
-        order.setOrderNumber(OrderNumber.generate());
         order.setPositions(positionsDtoToDomain(orderDto.getPositions()));
         return order;
     }

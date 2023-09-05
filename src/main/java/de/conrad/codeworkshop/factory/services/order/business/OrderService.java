@@ -3,11 +3,11 @@ package de.conrad.codeworkshop.factory.services.order.business;
 import de.conrad.codeworkshop.factory.services.factory.FactoryService;
 import de.conrad.codeworkshop.factory.services.order.business.domain.Order;
 import de.conrad.codeworkshop.factory.services.order.business.domain.OrderConfirmation;
+import de.conrad.codeworkshop.factory.services.order.business.domain.OrderNumber;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static de.conrad.codeworkshop.factory.services.order.business.domain.OrderConfirmation.BLANK_ORDER_CONFIRMATION;
 import static de.conrad.codeworkshop.factory.services.order.business.domain.OrderStatus.ACCEPTED;
 
 /**
@@ -25,21 +25,14 @@ public class OrderService {
     }
 
     /**
-     * Validates the input order. If it is valid, it is enqueued in the factory via the factoryController. Either way an
-     * appropriate order confirmation is returned.
+     * Creates the accepted order: orderNumber is assigned and the order is enqueued in the factory via the factoryService.
+     * The order confirmation is returned.
      */
     public OrderConfirmation createOrder(final Order order) {
-        final OrderConfirmation orderConfirmation;
+        order.setOrderNumber(OrderNumber.generate());
+        order.setStatus(ACCEPTED);
+        factoryService.enqueue(order);
 
-        if (order.getStatus() == ACCEPTED) {
-            orderConfirmation = new OrderConfirmation(order.getOrderNumber(), ACCEPTED);
-            order.setOrderConfirmation(orderConfirmation);
-            factoryService.enqueue(order);
-        } else {
-            log.warn("createOrder: order declined");
-            orderConfirmation = BLANK_ORDER_CONFIRMATION;
-        }
-
-        return orderConfirmation;
+        return new OrderConfirmation(order.getOrderNumber(), order.getStatus());
     }
 }
